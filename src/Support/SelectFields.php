@@ -226,7 +226,7 @@ class SelectFields
                             $customQuery
                         );
                     } else {
-                        static::handleFields($queryArgs, $field, $fieldObject->config['type'], $select, $with, $ctx);
+                        static::handleFields($queryArgs, $field, $fieldObject->getType(), $select, $with, $ctx);
                     }
                 }
                 // Select
