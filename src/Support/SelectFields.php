@@ -149,21 +149,21 @@ class SelectFields
                 continue;
             }
 
+            $parentTypeUnwrapped = $parentType;
+
+            if ($parentTypeUnwrapped instanceof WrappingType) {
+                $parentTypeUnwrapped = $parentTypeUnwrapped->getWrappedType(true);
+            }
+
             // If field doesn't exist on definition we don't select it
             try {
-                if (method_exists($parentType, 'getField')) {
-                    $fieldObject = $parentType->getField($key);
+                if (method_exists($parentTypeUnwrapped, 'getField')) {
+                    $fieldObject = $parentTypeUnwrapped->getField($key);
                 } else {
                     continue;
                 }
             } catch (InvariantViolation $e) {
                 continue;
-            }
-
-            $parentTypeUnwrapped = $parentType;
-
-            if ($parentTypeUnwrapped instanceof WrappingType) {
-                $parentTypeUnwrapped = $parentTypeUnwrapped->getWrappedType(true);
             }
 
             // First check if the field is even accessible
